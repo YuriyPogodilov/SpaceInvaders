@@ -615,6 +615,7 @@ script = ExtResource("1_ibjqk")
 
 [node name="Spaceship" parent="." instance=ExtResource("1_nsegh")]
 position = Vector2(589, 608)
+SPEED = 350
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
