@@ -11,10 +11,10 @@ config_version=5
 [application]
 
 config/name="SpaceInvaders"
-run/main_scene="res://map.tscn"
+run/main_scene="res://levels/map.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
-config/icon="res://icon.svg"
+config/icon="res://spaceship/Spaceship.png"
 
 [input]
 
@@ -36,6 +36,11 @@ move_right={
 move_left={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"echo":false,"script":null)
+]
+}
+shoot={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"echo":false,"script":null)
 ]
 }
 

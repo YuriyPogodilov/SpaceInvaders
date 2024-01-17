@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5wcf2du4krws"]
+
+[ext_resource type="Texture2D" uid="uid://cc2i6qj5rwj4u" path="res://enemies/UFO-1.png" id="1_h6k5s"]
+[ext_resource type="Script" path="res://enemies/ufo_1.gd" id="1_jwlqv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t1fax"]
+radius = 70.0
+height = 224.0
+
+[node name="UFO_1" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_jwlqv")
+
+[node name="Ufo-1" type="Sprite2D" parent="."]
+texture = ExtResource("1_h6k5s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_t1fax")

@@ -12,3 +12,12 @@ texture = ExtResource("1_5f64q")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-71, -11, -222, 54, -222, 18, -246, 18, -246, 113, -75, 113, -75, 145, 75, 145, 75, 113, 246, 113, 246, 18, 223, 18, 223, 54, 70, -12, 57, -88, 33, -131, 0, -146, -32, -131, -58, -90)
+
+[node name="ShootingPoint" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -150)
+
+[node name="ShootingCooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="ShootingCooldown" to="." method="_on_shooting_cooldown_timeout"]
