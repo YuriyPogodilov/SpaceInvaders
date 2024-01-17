@@ -6,9 +6,12 @@ func _physics_process(delta):
 	position += Vector2.UP * SPEED * delta
 	
 	# Destroy if out of screen
-	if global_position.y < -10:
+	var view_port = get_viewport_rect()
+	if (global_position.x < view_port.position.x || 
+		global_position.x > view_port.end.x || 
+		global_position.y < view_port.position.y ||
+		global_position.y > view_port.end.y):
 		queue_free()
-
 
 
 func _on_body_entered(body):

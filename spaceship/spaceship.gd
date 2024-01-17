@@ -1,4 +1,4 @@
-class_name Spacesheep extends CharacterBody2D
+class_name Spaceship extends CharacterBody2D
 
 @export_range(50, 1000, 50) var SPEED = 350
 @export_range(0.1, 3.0, 0.1) var SHOOTING_COOLDOWN = 0.5
@@ -6,7 +6,8 @@ class_name Spacesheep extends CharacterBody2D
 var is_on_shooting_cooldown = false
 
 func _physics_process(delta):
-	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction = Input.get_vector(
+		"move_left", "move_right", "move_up", "move_down")
 	velocity = direction * SPEED
 	
 	var view_port = get_viewport_rect()
@@ -25,8 +26,11 @@ func shoot():
 	is_on_shooting_cooldown = true
 	%ShootingCooldown.start(SHOOTING_COOLDOWN)
 	
+	# TODO: spawn shooting effect
+	# TODO: play shooting sound
 	const BULLET = preload("res://spaceship/bullet.tscn")
 	var new_bullet = BULLET.instantiate()
+	new_bullet.set_collision_mask_value(2, true)
 	new_bullet.global_position = %ShootingPoint.global_position
 	%ShootingPoint.add_child(new_bullet)
 
