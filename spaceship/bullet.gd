@@ -7,10 +7,7 @@ func _physics_process(delta):
 	
 	# Destroy if out of screen
 	var view_port = get_viewport_rect()
-	if (global_position.x < view_port.position.x || 
-		global_position.x > view_port.end.x || 
-		global_position.y < view_port.position.y ||
-		global_position.y > view_port.end.y):
+	if not view_port.has_point(global_position):
 		queue_free()
 
 
