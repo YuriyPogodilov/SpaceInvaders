@@ -11,6 +11,12 @@ func take_damage():
 	
 
 func die():
-	# TODO: spawn explosion
+	# Spawn explosion
+	const EXPLOSION = preload("res://explosion.tscn")
+	var explosion = EXPLOSION.instantiate()
+	get_parent().add_child(explosion)
+	explosion.global_position = global_position
+	explosion.restart()
+
 	onEnemyKilled.emit()
 	queue_free()
