@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Ufo_1 extends CharacterBody2D
 
 signal onEnemyKilled
 
@@ -20,3 +20,6 @@ func die():
 
 	onEnemyKilled.emit()
 	queue_free()
+
+func destroy_by_collision():
+	die()

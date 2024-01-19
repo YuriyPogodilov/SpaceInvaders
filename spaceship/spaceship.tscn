@@ -5,6 +5,7 @@
 
 [node name="Spaceship" type="CharacterBody2D"]
 scale = Vector2(0.1, 0.1)
+collision_mask = 3
 script = ExtResource("1_3gigf")
 
 [node name="Sprite" type="Sprite2D" parent="."]

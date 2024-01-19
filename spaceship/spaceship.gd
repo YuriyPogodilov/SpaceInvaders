@@ -3,6 +3,8 @@ class_name Spaceship extends CharacterBody2D
 @export_range(50, 1000, 50) var SPEED = 350
 @export_range(0.1, 3.0, 0.1) var SHOOTING_COOLDOWN = 0.5
 
+signal onPlayerDied
+
 var is_on_shooting_cooldown = false
 
 func _physics_process(delta):
@@ -13,11 +15,16 @@ func _physics_process(delta):
 	var view_port = get_viewport_rect()
 	global_position = global_position.clamp(view_port.position, view_port.end)
 
-	move_and_slide()
+	var collided = move_and_slide()
+	if collided:
+		var last_collision = get_last_slide_collision()
+		var body = last_collision.get_collider()
+		if body.is_in_group("Enemies"):
+			body.destroy_by_collision()
+			die()		
 	
 	if Input.is_action_pressed("shoot"):
 		shoot()
-
 
 func shoot():
 	if is_on_shooting_cooldown:
@@ -36,3 +43,14 @@ func shoot():
 
 func _on_shooting_cooldown_timeout():
 	is_on_shooting_cooldown = false
+
+func die():
+	# Spawn explosion
+	const EXPLOSION = preload("res://explosion.tscn")
+	var explosion = EXPLOSION.instantiate()
+	get_parent().add_child(explosion)
+	explosion.global_position = global_position
+	explosion.restart()
+
+	onPlayerDied.emit()
+	queue_free()
