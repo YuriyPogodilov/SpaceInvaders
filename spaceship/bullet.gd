@@ -2,8 +2,10 @@ class_name Bullet extends Area2D
 
 @export_range(10, 3000, 10) var SPEED = 1000
 
+var direction = Vector2.UP
+
 func _physics_process(delta):
-	position += Vector2.UP * SPEED * delta
+	position += direction * SPEED * delta
 	
 	# Destroy if out of screen
 	var view_port = get_viewport_rect()

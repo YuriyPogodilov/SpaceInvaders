@@ -15,3 +15,9 @@ func increase_score():
 
 func game_over():
 	%GameOverLabel.visible = true
+
+
+func _on_enemies_attack_cooldown_timeout():
+	var enemies = get_tree().get_nodes_in_group("Enemies")
+	var id = randi() % enemies.size()
+	enemies[id].shoot()

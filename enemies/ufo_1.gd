@@ -8,7 +8,6 @@ func take_damage():
 	health -= 1
 	if health <= 0:
 		die()
-	
 
 func die():
 	# Spawn explosion
@@ -23,3 +22,13 @@ func die():
 
 func destroy_by_collision():
 	die()
+	
+func shoot():
+	# TODO: spawn shooting effect
+	# TODO: play shooting sound
+	const BULLET = preload("res://spaceship/bullet.tscn")
+	var new_bullet = BULLET.instantiate()
+	new_bullet.set_collision_mask_value(1, true)
+	new_bullet.global_position = %ShootingPoint.global_position
+	new_bullet.direction = Vector2.DOWN
+	%ShootingPoint.add_child(new_bullet)

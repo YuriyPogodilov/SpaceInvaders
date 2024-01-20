@@ -673,8 +673,6 @@ label_settings = SubResource("LabelSettings_d3p4d")
 [node name="Spaceship" parent="." instance=ExtResource("1_nsegh")]
 unique_name_in_owner = true
 position = Vector2(636, 652)
-SPEED = 350
-SHOOTING_COOLDOWN = 0.5
 
 [node name="Enemies" type="CanvasLayer" parent="."]
 
@@ -725,3 +723,9 @@ position = Vector2(855, 153)
 
 [node name="UFO_16" parent="Enemies" instance=ExtResource("4_kvc5q")]
 position = Vector2(937, 152)
+
+[node name="EnemiesAttackCooldown" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="EnemiesAttackCooldown" to="." method="_on_enemies_attack_cooldown_timeout"]

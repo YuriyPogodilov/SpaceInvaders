@@ -54,3 +54,7 @@ func die():
 
 	onPlayerDied.emit()
 	queue_free()
+
+func take_damage():
+	# TODO: health
+	die()
