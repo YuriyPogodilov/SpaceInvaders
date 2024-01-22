@@ -625,6 +625,7 @@ shadow_color = Color(0.690196, 0.352941, 1, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ibjqk")
+enemies_attack_coodown = 1.5
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -672,63 +673,64 @@ label_settings = SubResource("LabelSettings_d3p4d")
 
 [node name="Spaceship" parent="." instance=ExtResource("1_nsegh")]
 unique_name_in_owner = true
-position = Vector2(636, 652)
+position = Vector2(388, 563)
+
+[node name="EnemiesAttackCooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+autostart = true
 
 [node name="Enemies" type="CanvasLayer" parent="."]
 
 [node name="UFO_1" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(374, 95)
+position = Vector2(123, 91)
 
 [node name="UFO_2" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(454, 96)
+position = Vector2(203, 92)
 
 [node name="UFO_3" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(536, 95)
+position = Vector2(285, 91)
 
 [node name="UFO_4" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(615, 95)
+position = Vector2(364, 91)
 
 [node name="UFO_5" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(695, 96)
+position = Vector2(444, 92)
 
 [node name="UFO_6" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(777, 95)
+position = Vector2(526, 91)
 
 [node name="UFO_7" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(855, 93)
+position = Vector2(604, 89)
 
 [node name="UFO_8" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(937, 92)
+position = Vector2(686, 88)
 
 [node name="UFO_9" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(331, 154)
+position = Vector2(80, 150)
 
 [node name="UFO_10" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(411, 155)
+position = Vector2(160, 151)
 
 [node name="UFO_11" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(493, 154)
+position = Vector2(242, 150)
 
 [node name="UFO_12" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(572, 154)
+position = Vector2(321, 150)
 
 [node name="UFO_13" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(652, 155)
+position = Vector2(401, 151)
 
 [node name="UFO_14" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(734, 154)
+position = Vector2(483, 150)
 
 [node name="UFO_15" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(812, 152)
+position = Vector2(561, 148)
 
 [node name="UFO_16" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(894, 151)
+position = Vector2(643, 147)
 
 [node name="UFO_17" parent="Enemies" instance=ExtResource("4_kvc5q")]
-position = Vector2(967, 150)
-
-[node name="EnemiesAttackCooldown" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
+position = Vector2(716, 146)
 
 [connection signal="timeout" from="EnemiesAttackCooldown" to="." method="_on_enemies_attack_cooldown_timeout"]

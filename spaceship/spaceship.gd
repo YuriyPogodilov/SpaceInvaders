@@ -10,7 +10,8 @@ var is_on_shooting_cooldown = false
 func _physics_process(delta):
 	var direction = Input.get_vector(
 		"move_left", "move_right", "move_up", "move_down")
-	velocity = direction * SPEED
+	var direction_x = Vector2(direction.x, 0)
+	velocity = direction_x * SPEED
 	
 	var view_port = get_viewport_rect()
 	global_position = global_position.clamp(view_port.position, view_port.end)

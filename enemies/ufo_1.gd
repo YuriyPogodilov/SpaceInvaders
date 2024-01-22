@@ -2,7 +2,19 @@ class_name Ufo_1 extends CharacterBody2D
 
 signal onEnemyKilled
 
-var health = 2
+@export_range(50, 1000, 50) var SPEED = 200
+
+var health = 1
+var is_attacking = false
+
+func _physics_process(delta):
+	if is_attacking:
+		var direction = Vector2.UP.rotated(transform.get_rotation())
+		position += direction * SPEED * delta
+	var view_port = get_viewport_rect()
+	if not view_port.has_point(position):
+		position.x = clamp(position.x, view_port.position.x, view_port.end.x)
+		position.y = 0
 
 func take_damage():
 	health -= 1
@@ -32,3 +44,8 @@ func shoot():
 	new_bullet.global_position = %ShootingPoint.global_position
 	new_bullet.direction = Vector2.DOWN
 	%ShootingPoint.add_child(new_bullet)
+
+func attack(new_target: Vector2):
+	look_at(new_target)
+	rotation += PI / 2
+	is_attacking = true

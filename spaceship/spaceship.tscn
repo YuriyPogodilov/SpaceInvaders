@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://spaceship/spaceship.gd" id="1_3gigf"]
 [ext_resource type="Texture2D" uid="uid://cwungs6j1mbak" path="res://spaceship/Spaceship.png" id="1_5f64q"]
 
-[node name="Spaceship" type="CharacterBody2D"]
+[node name="Spaceship" type="CharacterBody2D" groups=["Player"]]
 scale = Vector2(0.1, 0.1)
 collision_mask = 3
 script = ExtResource("1_3gigf")
