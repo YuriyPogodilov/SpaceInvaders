@@ -19,5 +19,6 @@ func game_over():
 
 func _on_enemies_attack_cooldown_timeout():
 	var enemies = get_tree().get_nodes_in_group("Enemies")
-	var id = randi() % enemies.size()
-	enemies[id].shoot()
+	if not enemies.is_empty():
+		var id = randi() % enemies.size()
+		enemies[id].shoot()
