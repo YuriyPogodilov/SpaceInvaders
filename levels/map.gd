@@ -33,4 +33,4 @@ func _on_enemies_attack_cooldown_timeout():
 	if not enemies.is_empty():
 		var id = randi() % enemies.size()
 		enemies[id].shoot()
-		enemies[id].attack(%Spaceship.global_position)
+		enemies[id].attack(%Spaceship)
