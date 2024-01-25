@@ -9,7 +9,7 @@ func _ready():
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 	for E in enemies:
 		E.connect("onEnemyKilled", increase_score)
-		
+	
 	%Spaceship.connect("onPlayerDied", game_over)
 	
 	%EnemiesAttackCooldown.wait_time = enemies_attack_coodown
@@ -19,11 +19,24 @@ func _ready():
 func increase_score():
 	score += 1
 	%ScoreLabel.text = "%03d" % score
+	
+	var enemies = get_tree().get_nodes_in_group("Enemies")
+	if enemies.size() == 1: # TODO: how to make it better?
+		win()
+
+func win():
+	is_game_ended = true
+	%GameEndInterface.visible = true
+	%VictoryLabel.visible = true
 
 func game_over():
+	var enemies = get_tree().get_nodes_in_group("Enemies")
+	for E in enemies:
+		E.queue_free()
+	
 	is_game_ended = true
+	%GameEndInterface.visible = true
 	%GameOverLabel.visible = true
-
 
 func _on_enemies_attack_cooldown_timeout():
 	if is_game_ended:
@@ -34,3 +47,7 @@ func _on_enemies_attack_cooldown_timeout():
 		var id = randi() % enemies.size()
 		enemies[id].shoot()
 		enemies[id].attack(%Spaceship)
+
+
+func _on_restart_button_pressed():
+	get_tree().reload_current_scene()

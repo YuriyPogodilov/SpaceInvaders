@@ -22,7 +22,7 @@ func _physics_process(delta):
 		var body = last_collision.get_collider()
 		if body.is_in_group("Enemies"):
 			body.destroy_by_collision()
-			die()		
+			die()
 	
 	if Input.is_action_pressed("shoot"):
 		shoot()
@@ -35,12 +35,12 @@ func shoot():
 	%ShootingCooldown.start(SHOOTING_COOLDOWN)
 	
 	# TODO: spawn shooting effect
-	# TODO: play shooting sound
+	SoundManager.play("res://sounds/laserShoot_0.wav")
 	const BULLET = preload("res://spaceship/bullet.tscn")
 	var new_bullet = BULLET.instantiate()
 	new_bullet.set_collision_mask_value(2, true)
 	new_bullet.global_position = %ShootingPoint.global_position
-	%ShootingPoint.add_child(new_bullet)
+	get_parent().add_child(new_bullet)
 
 func _on_shooting_cooldown_timeout():
 	is_on_shooting_cooldown = false
@@ -52,6 +52,8 @@ func die():
 	get_parent().add_child(explosion)
 	explosion.global_position = global_position
 	explosion.restart()
+
+	SoundManager.play("res://sounds/explosion_2.wav")
 
 	onPlayerDied.emit()
 	queue_free()

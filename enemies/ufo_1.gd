@@ -30,11 +30,13 @@ func take_damage():
 
 func die():
 	# Spawn explosion
-	const EXPLOSION = preload("res://explosion.tscn")
-	var explosion = EXPLOSION.instantiate()
-	get_parent().add_child(explosion)
-	explosion.global_position = global_position
-	explosion.restart()
+	const EXPLOSION_EFFECT = preload("res://explosion.tscn")
+	var explosion_effect = EXPLOSION_EFFECT.instantiate()
+	get_parent().add_child(explosion_effect)
+	explosion_effect.global_position = global_position
+	explosion_effect.restart()
+	
+	SoundManager.play("res://sounds/explosion_0.wav")
 
 	onEnemyKilled.emit()
 	queue_free()
@@ -44,13 +46,13 @@ func destroy_by_collision():
 	
 func shoot():
 	# TODO: spawn shooting effect
-	# TODO: play shooting sound
+	SoundManager.play("res://sounds/laserShoot_1.wav")
 	const BULLET = preload("res://spaceship/bullet.tscn")
 	var new_bullet = BULLET.instantiate()
 	new_bullet.set_collision_mask_value(1, true)
 	new_bullet.global_position = %ShootingPoint.global_position
 	new_bullet.direction = Vector2.DOWN
-	%ShootingPoint.add_child(new_bullet)
+	get_parent().add_child(new_bullet)
 
 func attack(new_target: Node2D):
 	target = new_target
