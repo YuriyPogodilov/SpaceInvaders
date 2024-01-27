@@ -3,12 +3,11 @@ class_name Game extends Node2D
 @export var enemies_attack_coodown: float = 3.0
 
 var is_game_ended: bool = false
-var score = 0
 
 func _ready():
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 	for E in enemies:
-		E.connect("onEnemyKilled", increase_score)
+		E.connect("onEnemyKilled", func(): GameMode.add_score(1))
 	
 	%Spaceship.connect("onPlayerDied", game_over)
 	
@@ -16,18 +15,18 @@ func _ready():
 	%EnemiesAttackCooldown.autostart = true
 	%EnemiesAttackCooldown.start()
 	
-func increase_score():
-	score += 1
-	%ScoreLabel.text = "%03d" % score
-	
-	var enemies = get_tree().get_nodes_in_group("Enemies")
-	if enemies.size() == 1: # TODO: how to make it better?
-		win()
+	%RestartButton.connect("pressed", restart)
 
-func win():
-	is_game_ended = true
-	%GameEndInterface.visible = true
-	%VictoryLabel.visible = true
+	%ScoreLabel.text = "Score: %03d" % GameMode.get_score()
+	%HighestScoreLabel.text = "Highest: %03d" % GameMode.get_highest_score()
+	
+	GameMode.connect("onScoreChanged", func(new_score: int): %ScoreLabel.text = "Score: %03d" % new_score)
+	GameMode.connect("onHighestScoreChanged", func(new_score: int): %HighestScoreLabel.text = "Highest: %03d" % new_score)
+
+func _process(delta):
+	if Input.is_action_just_pressed("shoot"):
+		if is_game_ended:
+			restart()
 
 func game_over():
 	var enemies = get_tree().get_nodes_in_group("Enemies")
@@ -35,8 +34,14 @@ func game_over():
 		E.queue_free()
 	
 	is_game_ended = true
-	%GameEndInterface.visible = true
-	%GameOverLabel.visible = true
+	%GameOverInterface.visible = true
+
+func restart():
+	get_tree().reload_current_scene()
+	GameMode.reset()
+
+func respawn_enemies():
+	pass
 
 func _on_enemies_attack_cooldown_timeout():
 	if is_game_ended:
@@ -48,6 +53,7 @@ func _on_enemies_attack_cooldown_timeout():
 		enemies[id].shoot()
 		enemies[id].attack(%Spaceship)
 
-
-func _on_restart_button_pressed():
-	get_tree().reload_current_scene()
+func _on_child_exiting_tree(node):
+	var enemies = get_tree().get_nodes_in_group("Enemies")
+	if enemies.is_empty():
+		respawn_enemies()

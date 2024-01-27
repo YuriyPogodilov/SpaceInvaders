@@ -12,6 +12,9 @@ var attack_curve_points: Array[Vector2]
 
 var target: Node2D = null
 
+func _ready():
+	$AnimationPlayer.play("idle")
+
 func _physics_process(delta):
 	if is_attacking && target != null:
 		global_position.y += SPEED * delta

@@ -637,73 +637,65 @@ layer_0/tile_data = PackedInt32Array(0, 1245184, 5, 65536, 65536, 0, 131072, 655
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
+[node name="HighestScoreLabel" type="Label" parent="GUI"]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 83.0
+offset_bottom = 59.0
+size_flags_horizontal = 4
+text = "Highest: 000"
+label_settings = SubResource("LabelSettings_i8q5p")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ScoreLabel" type="Label" parent="GUI"]
 unique_name_in_owner = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -84.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 60.0
+offset_left = -83.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 59.0
 grow_horizontal = 0
 size_flags_horizontal = 4
-text = "000"
+text = "Score: 000"
 label_settings = SubResource("LabelSettings_i8q5p")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameEndInterface" type="CanvasLayer" parent="GUI"]
+[node name="GameOverInterface" type="CanvasLayer" parent="GUI"]
 unique_name_in_owner = true
 visible = false
 
-[node name="VictoryLabel" type="Label" parent="GUI/GameEndInterface"]
-unique_name_in_owner = true
-visible = false
+[node name="GameOverLabel" type="Label" parent="GUI/GameOverInterface"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -143.0
-offset_top = -34.5
+offset_top = -62.0
 offset_right = 143.0
-offset_bottom = 34.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-text = "VICTORY"
-label_settings = SubResource("LabelSettings_d3p4d")
-horizontal_alignment = 1
-
-[node name="GameOverLabel" type="Label" parent="GUI/GameEndInterface"]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -143.0
-offset_top = -34.5
-offset_right = 143.0
-offset_bottom = 34.5
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 text = "GAME OVER"
 label_settings = SubResource("LabelSettings_d3p4d")
 
-[node name="RestartButton" type="Button" parent="GUI/GameEndInterface"]
+[node name="RestartButton" type="Button" parent="GUI/GameOverInterface"]
+unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -37.5
-offset_top = 67.0
+offset_top = 39.5
 offset_right = 37.5
-offset_bottom = 98.0
+offset_bottom = 70.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -711,7 +703,7 @@ text = "RESTART"
 
 [node name="Spaceship" parent="." instance=ExtResource("1_nsegh")]
 unique_name_in_owner = true
-position = Vector2(388, 563)
+position = Vector2(400, 550)
 
 [node name="EnemiesAttackCooldown" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -771,5 +763,5 @@ position = Vector2(643, 147)
 [node name="UFO_17" parent="Enemies" instance=ExtResource("4_kvc5q")]
 position = Vector2(716, 146)
 
-[connection signal="pressed" from="GUI/GameEndInterface/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="timeout" from="EnemiesAttackCooldown" to="." method="_on_enemies_attack_cooldown_timeout"]
