@@ -13,7 +13,9 @@ var attack_curve_points: Array[Vector2]
 var target: Node2D = null
 
 func _ready():
-	$AnimationPlayer.play("idle")
+	var speed: float = randf() + 0.5
+	var from_end: bool = randi() % 2
+	$AnimationPlayer.play("idle", -1, speed, from_end)
 
 func _physics_process(delta):
 	if is_attacking && target != null:
@@ -58,5 +60,6 @@ func shoot():
 	get_parent().add_child(new_bullet)
 
 func attack(new_target: Node2D):
+	$AnimationPlayer.stop()
 	target = new_target
 	is_attacking = true
