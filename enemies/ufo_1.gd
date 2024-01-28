@@ -2,7 +2,7 @@ class_name Ufo_1 extends CharacterBody2D
 
 signal onEnemyKilled
 
-@export_range(50, 1000, 50) var SPEED = 200
+@export_range(50, 1000, 50) var SPEED = 50
 
 var health = 1
 var is_attacking = false
@@ -13,14 +13,15 @@ var attack_curve_points: Array[Vector2]
 var target: Node2D = null
 
 func _ready():
-	var speed: float = randf() + 0.5
+	var anim_speed: float = randf() + 0.5
 	var from_end: bool = randi() % 2
-	$AnimationPlayer.play("idle", -1, speed, from_end)
+	$AnimationPlayer.play("idle", -1, anim_speed, from_end)
 
 func _physics_process(delta):
 	if is_attacking && target != null:
-		global_position.y += SPEED * delta
-		global_position.x = lerp(global_position.x, target.global_position.x, 0.01)
+		var difficulty = GameMode.get_difficulty()
+		global_position.y += SPEED * difficulty * delta
+		global_position.x = lerp(global_position.x, target.global_position.x, 0.01 * difficulty)
 
 	# Respawn at the top after reaching the bottom of the screen
 	var view_port = get_viewport_rect()
