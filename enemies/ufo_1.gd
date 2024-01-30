@@ -2,14 +2,13 @@ class_name Ufo_1 extends CharacterBody2D
 
 signal onEnemyKilled
 
-@export_range(50, 1000, 50) var SPEED = 50
+@export_range(50, 1000, 50) var SPEED = 200
+@export_range(50, 1000, 50) var SPEED_STEP = 50
 
 var health = 1
+var is_moving = false
 var is_attacking = false
-var attacking_time = 0
-var attack_duration = 2.5
-var attack_curve_points: Array[Vector2]
-
+var destination: Vector2 = Vector2.ZERO
 var target: Node2D = null
 
 func _ready():
@@ -18,16 +17,29 @@ func _ready():
 	$AnimationPlayer.play("idle", -1, anim_speed, from_end)
 
 func _physics_process(delta):
-	if is_attacking && target != null:
-		var difficulty = GameMode.get_difficulty()
-		global_position.y += SPEED * difficulty * delta
-		global_position.x = lerp(global_position.x, target.global_position.x, 0.01 * difficulty)
+	if is_moving && destination != Vector2.ZERO:
+		if global_position != destination:
+			global_position = global_position.move_toward(destination, get_speed() * delta)
+		else:
+			is_moving = false
+	elif is_attacking && target != null:
+		global_position.y += get_speed() * delta
+		global_position.x = lerp(global_position.x, target.global_position.x, 0.01 * GameMode.get_difficulty())
 
 	# Respawn at the top after reaching the bottom of the screen
 	var view_port = get_viewport_rect()
-	if not view_port.has_point(position):
-		position.x = clamp(position.x, view_port.position.x, view_port.end.x)
+	if global_position.y > view_port.end.y + 50:
 		position.y = 0
+
+
+func get_speed() -> float:
+	return SPEED + SPEED_STEP * GameMode.get_difficulty()
+
+
+func move_to(new_destination: Vector2):
+	destination = new_destination
+	is_moving = true
+
 
 func take_damage():
 	health -= 1
@@ -61,6 +73,8 @@ func shoot():
 	get_parent().add_child(new_bullet)
 
 func attack(new_target: Node2D):
+	if is_moving:
+		return
 	$AnimationPlayer.stop()
 	target = new_target
 	is_attacking = true
