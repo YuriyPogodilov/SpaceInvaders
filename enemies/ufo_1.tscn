@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5wcf2du4krws"]
 
-[ext_resource type="Texture2D" uid="uid://cc2i6qj5rwj4u" path="res://enemies/UFO-1.png" id="1_h6k5s"]
 [ext_resource type="Script" path="res://enemies/ufo_1.gd" id="1_jwlqv"]
+[ext_resource type="Texture2D" uid="uid://cl4remgfn2gpr" path="res://enemies/UFO-2.png" id="3_v5420"]
 
 [sub_resource type="Animation" id="Animation_kvkkp"]
 resource_name = "idle"
@@ -10,26 +10,26 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Ufo-1:position")
+tracks/0/path = NodePath("Ufo-1:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 20), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Ufo-1:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.0872665, 0.0, 0.0872665, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ufo-1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 20), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3fkfj"]
@@ -48,9 +48,7 @@ collision_mask = 3
 script = ExtResource("1_jwlqv")
 
 [node name="Ufo-1" type="Sprite2D" parent="."]
-position = Vector2(0, 19.5591)
-rotation = -0.00384767
-texture = ExtResource("1_h6k5s")
+texture = ExtResource("3_v5420")
 
 [node name="ShootingPoint" type="Marker2D" parent="."]
 unique_name_in_owner = true

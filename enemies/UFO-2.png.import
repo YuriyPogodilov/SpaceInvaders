@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://erdc4lsibfve"
-path="res://.godot/imported/space_bg.jpeg-ed97978216ff31d3ab24d06e31a91d6c.ctex"
+uid="uid://cl4remgfn2gpr"
+path="res://.godot/imported/UFO-2.png-d2146b23f69b13373b021da848e77cfe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/space_bg.jpeg"
-dest_files=["res://.godot/imported/space_bg.jpeg-ed97978216ff31d3ab24d06e31a91d6c.ctex"]
+source_file="res://enemies/UFO-2.png"
+dest_files=["res://.godot/imported/UFO-2.png-d2146b23f69b13373b021da848e77cfe.ctex"]
 
 [params]
 
