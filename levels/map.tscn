@@ -133,6 +133,7 @@ text = "RESTART"
 [node name="Spaceship" parent="." instance=ExtResource("1_nsegh")]
 unique_name_in_owner = true
 position = Vector2(400, 550)
+scale = Vector2(0.4, 0.4)
 
 [node name="EnemiesAttackCooldown" type="Timer" parent="."]
 unique_name_in_owner = true
