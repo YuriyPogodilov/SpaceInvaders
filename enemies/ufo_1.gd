@@ -9,7 +9,7 @@ var health = 1
 var is_moving = false
 var is_attacking = false
 var destination: Vector2 = Vector2.ZERO
-var target: Node2D = null
+var target: Vector2 = Vector2.ZERO
 
 func _ready():
 	var anim_speed: float = randf() + 0.5
@@ -23,13 +23,15 @@ func _physics_process(delta):
 		else:
 			is_moving = false
 	elif is_attacking && target != null:
+		global_position.x = global_position.move_toward(target, get_speed() * delta).x
 		global_position.y += get_speed() * delta
-		global_position.x = lerp(global_position.x, target.global_position.x, 0.01 * GameMode.get_difficulty())
 
 	# Respawn at the top after reaching the bottom of the screen
 	var view_port = get_viewport_rect()
 	if global_position.y > view_port.end.y + 50:
 		position.y = 0
+		is_moving = true
+		is_attacking = false
 
 
 func get_speed() -> float:
@@ -72,7 +74,7 @@ func shoot():
 	new_bullet.direction = Vector2.DOWN
 	get_parent().add_child(new_bullet)
 
-func attack(new_target: Node2D):
+func attack(new_target: Vector2):
 	if is_moving:
 		return
 	$AnimationPlayer.stop()
