@@ -48,6 +48,9 @@ func take_damage():
 	if health <= 0:
 		die()
 
+func is_dead() -> bool:
+	return health <= 0
+
 func die():
 	# Spawn explosion
 	const EXPLOSION_EFFECT = preload("res://explosion.tscn")

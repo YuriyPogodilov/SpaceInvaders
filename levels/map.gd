@@ -8,6 +8,8 @@ const ENEMY_CLASS = preload("res://enemies/ufo_1.tscn")
 var is_game_ended: bool = false
 var is_respawning: bool = false
 
+var enemies_count: int = 0
+
 func _ready():
 	%Spaceship.connect("onPlayerDied", game_over)
 	
@@ -34,7 +36,7 @@ func _process(_delta):
 func spawn_enemies():
 	for pos in $EnemiesPositions.get_children():
 		var new_enemy = ENEMY_CLASS.instantiate()
-		new_enemy.connect("onEnemyKilled", func(): GameMode.add_score(1))
+		new_enemy.connect("onEnemyKilled", enemy_died)
 		var spawn_curve = null
 		var left = randi() % 2
 		if left:
@@ -44,7 +46,15 @@ func spawn_enemies():
 		spawn_curve.progress_ratio = randf()
 		new_enemy.global_position = spawn_curve.global_position
 		add_child(new_enemy)
+		enemies_count += 1
 		new_enemy.move_to(pos.global_position)
+
+
+func enemy_died():
+	GameMode.add_score(1)
+	enemies_count -= 1
+	if enemies_count == 0:
+		respawn_enemies()
 
 
 func game_over():
@@ -88,9 +98,3 @@ func _on_enemies_attack_cooldown_timeout():
 		enemies[id].attack(%Spaceship.global_position)
 	
 	%EnemiesAttackCooldown.start(randf_range(attack_cooldown_min, attack_cooldown_max))
-
-
-func _on_child_exiting_tree(_node):
-	var enemies = get_tree().get_nodes_in_group("Enemies")
-	if enemies.is_empty():
-		respawn_enemies()
